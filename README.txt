@@ -1,18 +1,11 @@
-1. Zainstaluj pythona (Zaznacz opcje zeby dodac pythona do PATH, oraz zeby zainstalować pip)
-2. Otworz terminal
-3. Wejdz do folderu z projektem
-4. Wpisz w terminalu wzależności co zadziała albo:
-    - pip install -r requirements.txt
+1. Sciag zawartosc tego projektu na kompa
+2. Zainstaluj pythona z sieci (moga byc checkboxy o PATH i PIP, zaznacz)
+3. Otworz terminal i wpisz: pip install "git+https://github.com/thewilq/sokker-predictor.git"
+4. Po zainstalowaniu wymaganych paczek w terminalu wejdz do folderu z projektem
+5. Odpal skrypt przez albo:
+    - py sokker-predictor\main.py
 albo
-    - py pip install -r requirements.txt
+    - python sokker-predictor\main.py
 albo
-    - python pip install requirements.txt
-jak sie wypierdoli to wpisz:
-    - <<ścieżka do pythona razem z .exe>> pip install requirements.txt
-5. Po zainstalowaniu wymaganych paczek odpal skrypt przez znow albo:
-    - py main.py
-albo
-    - python main.py
-albo
-    - <<ścieżka do pythona razem z .exe>> main.py
-6. Skrypt po zakończeniu utworzy plik excelowy w folderze Predictions
+    - <<ścieżka do pythona razem z .exe>> sokker-predictor\main.py
+6. Skrypt po zakończeniu utworzy plik excelowy w folderze sokker-predictor\Predictions
