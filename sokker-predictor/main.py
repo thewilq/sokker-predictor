@@ -21,7 +21,7 @@ options = Options()
 options.headless = True
 options.add_argument("--log-level=3")
 
-driver = webdriver.Chrome('C:/Development/sokker-predictor/Chromedriver/chromedriver.exe', options=options)
+driver = webdriver.Chrome('C:/Development/sokker-predictor/sokker-predictor/Chromedriver/chromedriver.exe', options=options)
 driver.get('https://sokker.org/transferSearch/trainer/0/pg/1/transfer_list/1/sort/end')
 driver.find_element_by_id('ilogin').send_keys(login)
 driver.find_element_by_id('ipassword').send_keys(password)
