@@ -7,7 +7,7 @@ setup(name='sokker-predictor',
       author='thewilq',
       author_email='wilquu@gmail.com',
       zip_safe=True,
-      packages=find_packages(),
+      packages=['sokker-predictor'],
       install_requires=[
           'backports.entry-points-selectable==1.1.0'
           , 'beautifulsoup4==4.9.3'

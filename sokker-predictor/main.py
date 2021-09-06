@@ -21,7 +21,7 @@ options = Options()
 options.headless = True
 options.add_argument("--log-level=3")
 
-driver = webdriver.Chrome('C:/Users/wilqu/Desktop/chromedriver92/chromedriver_win32 (1)/chromedriver.exe', options=options)
+driver = webdriver.Chrome('C:/Development/sokker-predictor/Chromedriver/chromedriver.exe', options=options)
 driver.get('https://sokker.org/transferSearch/trainer/0/pg/1/transfer_list/1/sort/end')
 driver.find_element_by_id('ilogin').send_keys(login)
 driver.find_element_by_id('ipassword').send_keys(password)
@@ -110,7 +110,6 @@ while soup.findAll(attrs='well'):
         week_num.append(sokker_week)
 
     global_counter = global_counter + 1
-    if global_counter == 2: break
 
 zipped_lists = zip(kondycja_num, bramkarz_num, szybkosc_num, obronca_num, technika_num, rozgrywajacy_num,
                    podania_num, strzelec_num)
