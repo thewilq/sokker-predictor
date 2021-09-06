@@ -49,5 +49,5 @@ setup(name='sokker-predictor',
           , 'virtualenv==20.7.2'
           , 'openpyxl==3.0.7'
           , 'et_xmlfile==1.1.0'
-          , 'https://github.com/thewilq/sokker-predictor.git@master']
+          , 'thewilq @ git+ssh://token@github.com/thewilq/sokker-predictor.git@master']
       )
