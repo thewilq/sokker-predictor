@@ -8,10 +8,12 @@ import sokker_api
 from math import floor
 import predict
 from pathlib import Path
+from functions import getpass
 
 print('Zaloguj się do sokkera')
 login = input('Wpisz login: ')
-password = input('Wpisz hasło: ')
+password = getpass('Wpisz hasło: ')
+
 print('Logowanie...')
 
 Path("../data_outputs").mkdir(parents=True, exist_ok=True)
@@ -46,21 +48,21 @@ rozgrywajacy_num = []
 strzelec_num = []
 end_of_auction_time_list = []
 end_of_auction_date_list = []
-aktualna_cena=[]
+aktualna_cena = []
 week_num = []
 
 global_counter = 0
 
 while soup.findAll(attrs='well'):
-    #print('foundsomething')
+    # print('foundsomething')
     page_number = global_counter + 1
     sokker_tl_webpath = 'https://sokker.org/transferSearch/trainer/0/pg/{}/transfer_list/1/sort/end'.format(page_number)
     print('currently scraping TL page number - {}'.format(page_number))
     driver.get(sokker_tl_webpath)
     content = driver.page_source
     soup = BeautifulSoup(content, 'html.parser')
-    #age, name, pid
-    #for element in soup.findAll(attrs='h5 title-block-2 text-primary'):
+    # age, name, pid
+    # for element in soup.findAll(attrs='h5 title-block-2 text-primary'):
     for element in soup.findAll(attrs='h5 title-block-2 text-primary c-player__cell'):
         pid = element.find('a')['href']
         name = element.find('a').contents[0]
@@ -106,7 +108,7 @@ while soup.findAll(attrs='well'):
         end_of_auction_time_list.append(end_of_auction_time)
         aktualna_cena.append(element.contents[-7:-6][0].text)
         week_of_year = end_of_auction_date.isocalendar()[1]
-        sokker_week = week_of_year - ((floor(week_of_year/16)) * 16)
+        sokker_week = week_of_year - ((floor(week_of_year / 16)) * 16)
         week_num.append(sokker_week)
 
     global_counter = global_counter + 1
@@ -122,19 +124,19 @@ df = pd.DataFrame({'transfer_id': transfer_id
                       , 'zawodnik': player_name
                       , 'wiek': player_age
                       , 'wartość': player_value
-                      , 'kondycja':kondycja_num
-                      , 'bramkarz':bramkarz_num
-                      , 'szybkość':szybkosc_num
+                      , 'kondycja': kondycja_num
+                      , 'bramkarz': bramkarz_num
+                      , 'szybkość': szybkosc_num
                       , 'obrońca': obronca_num
-                      , 'technika':technika_num
-                      , 'rozgrywający':rozgrywajacy_num
-                      , 'podania':podania_num
-                      , 'strzelec':strzelec_num
-                      , 'sumskill':sumskil
-                      , 'data_koniec_aukcji':end_of_auction_date_list
-                      , 'czas_koniec_aukcji':end_of_auction_time_list
-                      , 'dzien_tygodnia':datetime.isoweekday(end_of_auction_date)
-                      , 'aktualna_cena':aktualna_cena})
+                      , 'technika': technika_num
+                      , 'rozgrywający': rozgrywajacy_num
+                      , 'podania': podania_num
+                      , 'strzelec': strzelec_num
+                      , 'sumskill': sumskil
+                      , 'data_koniec_aukcji': end_of_auction_date_list
+                      , 'czas_koniec_aukcji': end_of_auction_time_list
+                      , 'dzien_tygodnia': datetime.isoweekday(end_of_auction_date)
+                      , 'aktualna_cena': aktualna_cena})
 
 datemask = datetime.now().strftime('%Y%m%d%H%M')
 full_filepath = '../data_outputs/transfer_list_{}'.format(datemask)
@@ -143,21 +145,18 @@ df.to_csv(full_filepath, index=False, encoding='utf-8')
 lista_wzrost, lista_forma = sokker_api.api_players(full_filepath, login, password)
 
 df_prediction_input = pd.DataFrame({'wiek': player_age
-                      , 'bramkarz':bramkarz_num
-                      , 'szybkość':szybkosc_num
-                      , 'obrońca': obronca_num
-                      , 'technika':technika_num
-                      , 'rozgrywający':rozgrywajacy_num
-                      , 'podania':podania_num
-                      , 'strzelec':strzelec_num
-                      , 'wzrost': lista_wzrost
-                      , 'forma': lista_forma
-                      , 'tydzien': sokker_week})
+                                       , 'bramkarz': bramkarz_num
+                                       , 'szybkość': szybkosc_num
+                                       , 'obrońca': obronca_num
+                                       , 'technika': technika_num
+                                       , 'rozgrywający': rozgrywajacy_num
+                                       , 'podania': podania_num
+                                       , 'strzelec': strzelec_num
+                                       , 'wzrost': lista_wzrost
+                                       , 'forma': lista_forma
+                                       , 'tydzien': sokker_week})
 
 prediction_input_filepath = '../data_outputs/transfer_list_prediction_input_{}'.format(datemask)
 df_prediction_input.to_csv(prediction_input_filepath, index=False, encoding='utf-8')
 
 predict.make_predictions(prediction_input_filepath, full_filepath)
-
-
-
