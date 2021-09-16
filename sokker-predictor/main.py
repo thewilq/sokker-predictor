@@ -106,7 +106,8 @@ while soup.findAll(attrs='well'):
         end_of_auction_time = end_of_auction_datetime.time()
         end_of_auction_date_list.append(end_of_auction_date)
         end_of_auction_time_list.append(end_of_auction_time)
-        aktualna_cena.append(element.contents[-7:-6][0].text)
+        start_liczby = int(element.contents[-7:-6][0].text.find(':'))+2
+        aktualna_cena.append(element.contents[-7:-6][0].text[start_liczby:-3].replace(' ',''))
         week_of_year = end_of_auction_date.isocalendar()[1]
         sokker_week = week_of_year - ((floor(week_of_year / 16)) * 16)
         week_num.append(sokker_week)
