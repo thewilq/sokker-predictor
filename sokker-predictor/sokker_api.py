@@ -21,10 +21,10 @@ def get_height_and_form(pid, requests_session):
 
     soup = BeautifulSoup(read_data, 'html.parser')
 
-    if soup.find('player').text != '':
+    try:
         height = soup.find('height').text
         form = soup.find('skillform').text
-    else:
+    except:
         height = 0
         form = 0
 
@@ -61,6 +61,3 @@ def api_players(filepath, login, password):
 
     pid_list, height_list, form_list = get_height_and_form_lists(requests_session, filepath)
     return height_list, form_list
-
-
-
